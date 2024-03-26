@@ -5,6 +5,7 @@ __pycache__/
 #Custom
 *.png
 *.mp4
+*.csv
 Images/
 Keepers/
 # C extensions
