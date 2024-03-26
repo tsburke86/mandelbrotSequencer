@@ -283,29 +283,6 @@ def naviLoop():
 
 
 
-        
-
-# printZooms takes 6 args:
-#         (x, y, initial zoom, images, crossHairBool, mag-optional)
-#printZooms(-0.3449474, -0.6425525, 1, 16, False, 2)
-
-naviLoop()
-'''
-printIters(-0.7692813199999996, # X,
-           0.1069251250000002,  # Y
-           1/128,                 # zoom,
-           4800,                  # WIDTH,               
-           3600,                  # HEIGHT,
-           200,                   # Istart,
-           10,                   # Itimes,
-           20,                    # Iinterval,
-           crossHairs = False,
-           display = False)
-
-print('done')
-
-'''
-
 '''
 Cool Locations:
 X:-0.7806635625 Y:-0.14670003249999977
@@ -317,8 +294,19 @@ X:-0.11640740000000008 Y:-0.6497024999999994
  Resolution: 600x400
   Zoom: 128.0x
   Iterations: 240
-
 Center Coordinates: X:-0.7692813199999996 Y:0.1069251250000002
 
-
 '''
+
+if __name__ == "__main__":
+    naviLoop()
+
+
+
+
+
+
+
+
+
+
