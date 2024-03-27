@@ -33,25 +33,47 @@ def generateFrameIntervals(startValue, endValue, name, maxIncrement, integer):
 		'startValue': startValue,
 		'endValue': endValue,
         'values': [],
-        'integerValues': integer # bool
+        'integerValues': integer, # bool
+        'delta': 0
     }
 
-	valueDelta = endValue - startValue # 252
-	valueIncrement = maxIncrement * valueDelta #1.625
+	if startValue < endValue:
+		valueDelta = endValue - startValue
+	else: 
+		valueDelta = startValue - endValue
+
+	valueIncrement = maxIncrement * valueDelta
+	frameIntervals['delta'] = valueDelta
 	frameIntervals['maxIncrement'] = valueIncrement
 	frameIntervals['frames'] = int(valueDelta / maxIncrement)
 
-	while startValue < endValue:
 
-		if frameIntervals['integerValues'] == True:
-			frameIntervals['values'].append(int(startValue))
-		else:
-			frameIntervals['values'].append(startValue)
-		startValue += valueIncrement
+	if startValue < endValue:
+		while startValue < endValue:
 
-	frameIntervals['values'].pop()
-	frameIntervals['values'].append(endValue)
-	frameIntervals['frames'] = len(frameIntervals['values'])
+			if frameIntervals['integerValues'] == True:
+				frameIntervals['values'].append(int(startValue))
+			else:
+				frameIntervals['values'].append(startValue)
+			startValue += valueIncrement
+
+		frameIntervals['values'].pop()
+		frameIntervals['values'].append(endValue)
+		frameIntervals['frames'] = len(frameIntervals['values'])
+
+	else:
+		while startValue > endValue:
+
+			if frameIntervals['integerValues'] == True:
+				frameIntervals['values'].append(int(startValue))
+			else:
+				frameIntervals['values'].append(startValue)
+			startValue -= valueIncrement
+
+		frameIntervals['values'].pop()
+		frameIntervals['values'].append(endValue)
+		frameIntervals['frames'] = len(frameIntervals['values'])
+
 
 	return frameIntervals
 
@@ -60,24 +82,40 @@ def generateFrameIntervals(startValue, endValue, name, maxIncrement, integer):
 # Change the increment to match the new frames
 def setFrameIntervals(frameIntervals, frames):
 	frameIntervals["values"] = []
-	valueDelta = frameIntervals["endValue"] - frameIntervals["startValue"]
+	valueDelta = frameIntervals["delta"]
 	valueIncrement = valueDelta / frames
  
 	frameIntervals['maxIncrement'] = valueIncrement # Set maxIncrement
 	startValue = frameIntervals["startValue"]
 	endValue = frameIntervals["endValue"]
 
-	while startValue < endValue:
+	if startValue < endValue:
+		while startValue < endValue:
 
-		if frameIntervals['integerValues'] == True:
-			frameIntervals['values'].append(int(startValue))
-		else:
-			frameIntervals['values'].append(startValue)
-		startValue += valueIncrement
+			if frameIntervals['integerValues'] == True:
+				frameIntervals['values'].append(int(startValue))
+			else:
+				frameIntervals['values'].append(startValue)
+			startValue += valueIncrement
 
-	frameIntervals['values'].pop()
-	frameIntervals['values'].append(endValue)
-	frameIntervals['frames'] = len(frameIntervals['values'])
+		frameIntervals['values'].pop()
+		frameIntervals['values'].append(endValue)
+		frameIntervals['frames'] = len(frameIntervals['values'])
+
+	else:
+		while startValue > endValue:
+
+			if frameIntervals['integerValues'] == True:
+				frameIntervals['values'].append(int(startValue))
+			else:
+				frameIntervals['values'].append(startValue)
+			startValue -= valueIncrement
+
+		frameIntervals['values'].pop()
+		frameIntervals['values'].append(endValue)
+		frameIntervals['frames'] = len(frameIntervals['values'])
+
+
 
 	return frameIntervals
 
@@ -87,24 +125,25 @@ def setFrameIntervals(frameIntervals, frames):
 
 
 if __name__ == '__main__':
-	x1 = 2
-	x2 = 40
+	
+	# x1 = 2
+	# x2 = 40
 
-	y1 = 5
-	y2 = 70
+	# y1 = 5
+	# y2 = 70
 
 	zoom1 = 4
 	zoom2 = 256
 
 	iter1 = 200
-	iter2 = 750
+	iter2 = 250
 
 
-	# x1 = -0.34515734750000004
-	# x2 = -0.3452412708398438
+	x2 = -0.34515734750000004
+	x1 = -0.3452412708398438
 
-	# y1 = -0.6422024474999997
-	# y2 = -0.6425610290429684
+	y1 = -0.6422024474999997
+	y2 = -0.6425610290429684
 
 	maxIncrement = .0125
 
@@ -114,7 +153,6 @@ if __name__ == '__main__':
 
 	xIntervals = generateFrameIntervals(x1, x2, 'x', maxIncrements['standard']['x'], integer=False)
 	yIntervals = generateFrameIntervals(y1, y2, 'y', maxIncrements['standard']['y'], integer=False)
-
 	zoomIntervals = generateFrameIntervals(zoom1, zoom2, 'zoom', maxIncrements['standard']['zoom'], integer=False)
 	iterIntervals = generateFrameIntervals(iter1, iter2, 'MAX_ITER', maxIncrements['standard']['MAX_ITER'], integer=True)
 
@@ -131,7 +169,6 @@ if __name__ == '__main__':
 		print(i['name'],i['frames'])
 
 	printList.sort(key=lambda x: x['frames'], reverse = True)
-	print(printList[0]['name'],printList[0]['frames'])
 
 	frames = printList[0]['frames']
 
@@ -142,9 +179,9 @@ if __name__ == '__main__':
 		if i['frames'] < frames:
 			i = setFrameIntervals(i, frames)
 
-			print(i['name'],i['frames'])
-			print(i['values'])
-			print()
+		print(i['name'],i['frames'])
+		print(i['values'])
+		print()
 		# print()
 		# print()
 
