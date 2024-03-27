@@ -4,7 +4,7 @@ import os
 #######################
 folder = 'Plots'
 
-fileName = "mandelbrotSeq4.mp4"
+fileName = "mandelbrotSeq1.mp4"
 #######################
 
 
