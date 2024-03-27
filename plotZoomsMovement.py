@@ -11,25 +11,34 @@ from mandelbrotConfig import *
 WIDTH = 600
 HEIGHT = 450
 MAX_ITER = 750
-# Give the Zooms as whole numbers ~ 32 is 32x
-startZoom = 1024
-endZoom =  8192
-# What percent of current zoom to increase by
+startZoom = 1/ 1024
+endZoom = 1 / 100000
 mag = .99025
 times = 0
 maxIncrement = .025
 crossHairs = True
 display = True
 
-xStart = -0.7692847770693966
-yStart = -0.1070103894443514
 
+
+xStart = -0.34515734750000004
+yStart = -0.6422024474999997
+xEnd = -0.3452412708398438
+yEnd = -0.6425610290429684
+
+# xStart = -0.11640740000000008
+# yStart = -0.6497024999999994
+# xEnd = -0.11640740000000008
+# yEnd = -0.6497024999999994
 
 #times = setTimes(startZoom, endZoom, mag)
 # coords = setCoords(xStart, yStart, xEnd, yEnd, times)
 
-zoomList = getZooms(startZoom, endZoom, mag)
-times = len(zoomList)
+coords1 = (xStart, yStart)
+coords2 = (xEnd, yEnd)
+coords = generateCoordsList(coords1, coords2, maxIncrement)
+
+times = coords['frames']
 print('times:', times)
 end = input('ctl+c to end or enter to continue')
 
@@ -37,8 +46,7 @@ end = input('ctl+c to end or enter to continue')
 totalTimer = StopWatch()
 totalTimer.start()
 
-printZooms(xStart, yStart, zoomList,WIDTH, HEIGHT, MAX_ITER, crossHairs, display, directory = 'Plots')
-#printZoomsMovement(coords, startZoom, times, MAX_ITER, WIDTH, HEIGHT, mag, crossHairs, display, directory = 'Plots')
+printZoomsMovement(coords, startZoom, times, MAX_ITER, WIDTH, HEIGHT, mag, crossHairs, display, directory = 'Plots')
 
 totalTimer.stop()
 print(totalTimer.lapsedTime() / 60, "minutes")

@@ -104,16 +104,18 @@ def getPoints(x, y, xSpread):
 # Set the amount of images and their zoom ratio
 # default zoom increase is mag=2
 
-def getZooms(start, times, mag):
-    zoomList = [start]
-    for i in range(times -1 ):
+def getZooms(start, endZoom, mag):
+    zoomList = [1 / start]
+    while start < endZoom:
         start = start / mag
-        zoomList.append(start)
+        zoomList.append(1 / start)
+    zoomList.pop()
+    zoomList.append(1 / endZoom)
     return zoomList
 
 def getZoomsMovement(coords, start, times, mag):
     zoomList = [start]
-    for i in range(times -1 ):
+    for i in range(times - 1 ):
         start = start / mag
         zoomList.append(start)
     return zoomList
@@ -158,8 +160,7 @@ def printIters(X, Y, zoom, WIDTH, HEIGHT, Istart, Itimes, Iinterval, crossHairs,
 # Print as many images as Ztimes.
 # mag is the amount (times) to magnify each time.
 #      - So mag = 2 means is gets twice as big each time
-def printZooms(X, Y, WIDTH, HEIGHT, MAX_ITER, Zstart, Ztimes, crossHairs, display, mag = 4, directory = ''):    # Change default mag interval
-    zoomList = getZooms(Zstart, Ztimes, mag)
+def printZooms(X, Y, zoomList, WIDTH, HEIGHT, MAX_ITER, crossHairs, display, directory = ''):    # Change default mag interval
     counter = 1
     for zoom in zoomList:
         printChart(X, Y, zoom, WIDTH, HEIGHT, MAX_ITER, crossHairs, display, counter, directory)

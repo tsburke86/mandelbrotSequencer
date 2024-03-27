@@ -63,7 +63,7 @@ def printHelp():
 
 
 
-def naviLoop():
+def naviLoop(x, y):
     # Files
     zoomFileName = 'NaviSequence.csv'
     zoomFile = os.getcwd()+'/Navigator/'+zoomFileName
@@ -74,15 +74,6 @@ def naviLoop():
     #   Image size (pixels)
     WIDTH = 600
     HEIGHT = 400
-
-    # Set initial coords
-    #X:-0.7692813199999996 Y:0.1069251250000002
-
-    # x= -0.7692813199999996
-    # y= 0.1069251250000002
-
-    x = -0.34515734750000004
-    y = -0.6422024474999997
 
     #zStart = 4
     zStart = 2
@@ -283,23 +274,44 @@ def naviLoop():
 
 
 
-'''
-Cool Locations:
-X:-0.7806635625 Y:-0.14670003249999977
-X: -1.1883  Y: 0.242
-X: -0.749  Y: 0.149 
-X:-0.34515734750000004 Y:-0.6422024474999997
-X:-0.11640740000000008 Y:-0.6497024999999994
 
+'''
  Resolution: 600x400
   Zoom: 128.0x
   Iterations: 240
 Center Coordinates: X:-0.7692813199999996 Y:0.1069251250000002
 
+
+
+  Zoom: 2097152.0x
+  Iterations: 750
+
+Center Coordinates: X:-0.7692847770693966 Y:0.1070103894443514
+
 '''
 
 if __name__ == "__main__":
-    naviLoop()
+
+
+    # Cool Locations:
+
+    # X:-0.7806635625 Y:-0.14670003249999977
+    # X: -1.1883  Y: 0.242
+    # X: -0.749  Y: 0.149 
+    # X:-0.34515734750000004 Y:-0.6422024474999997
+    # X:-0.11640740000000008 Y:-0.6497024999999994
+    # X:-0.7692813199999996 Y:0.1069251250000002
+
+
+    # Set initial coords
+
+    # x= -0.7692813199999996
+    # y= 0.1069251250000002
+
+    x = -0.7692813199999996
+    y = 0.1069251250000002
+
+    naviLoop(x,y)
 
 
 
